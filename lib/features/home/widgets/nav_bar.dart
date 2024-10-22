@@ -48,7 +48,7 @@ class NavBar extends StatelessWidget {
                 _NavBarButton(
                   title: 'News',
                   asset: 'tab2',
-                  active: state is HomeActivities,
+                  active: state is HomeNews,
                   onPressed: () {
                     context.read<HomeBloc>().add(ChangePageEvent(index: 1));
                   },

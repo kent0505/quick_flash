@@ -10,7 +10,7 @@ Future<bool> getData() async {
   try {
     final prefs = await SharedPreferences.getInstance();
     // await prefs.remove(Prefs.onboard);
-    await prefs.clear();
+    // await prefs.clear();
     bool onboard = prefs.getBool(Prefs.onboard) ?? true;
     return onboard;
   } catch (e) {

@@ -76,17 +76,3 @@ void logger(Object message) {
     debugPrint(e.toString());
   }
 }
-
-// void precacheImages(BuildContext context) {
-//   List<String> imageAssets = [
-//     'assets/test.jpg',
-//     // 'assets/.png',
-//   ];
-//   try {
-//     for (String assets in imageAssets) {
-//       precacheImage(AssetImage(assets), context);
-//     }
-//   } catch (e) {
-//     logger(e);
-//   }
-// }
