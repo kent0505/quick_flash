@@ -77,7 +77,11 @@ class _OnboardPageState extends State<OnboardPage> {
             height: getWidth(context),
             child: Stack(
               children: [
-                Image.asset('assets/onboard.png'),
+                Image.asset(
+                  'assets/onboard.png',
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
@@ -100,7 +104,11 @@ class _OnboardPageState extends State<OnboardPage> {
           ),
           Column(
             children: [
-              SizedBox(height: getWidth(context) - 30),
+              SizedBox(
+                height: getWidth(context) > 800
+                    ? getWidth(context) - 100
+                    : getWidth(context) - 30,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

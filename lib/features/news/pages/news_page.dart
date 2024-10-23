@@ -22,7 +22,7 @@ class NewsPage extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(width: 20),
+        const SizedBox(height: 20),
         Expanded(
           child: ListView(
             padding: const EdgeInsets.symmetric(horizontal: 30),

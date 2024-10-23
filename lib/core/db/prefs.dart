@@ -9,7 +9,7 @@ Future<bool> getData() async {
   try {
     final prefs = await SharedPreferences.getInstance();
     // await prefs.remove('onboard');
-    // await prefs.clear();
+    await prefs.clear();
     bool onboard = prefs.getBool('onboard') ?? true;
     lastReward = prefs.getInt('lastReward') ?? 0;
     coins = prefs.getInt('coins') ?? 0;
