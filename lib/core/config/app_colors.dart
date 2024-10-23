@@ -10,6 +10,7 @@ class AppColors {
   static Color black50 = black.withOpacity(0.5);
   static Color white50 = white.withOpacity(0.5);
   static Color white34 = white.withOpacity(0.34);
+  static Color white10 = white.withOpacity(0.1);
 }
 
 class Fonts {

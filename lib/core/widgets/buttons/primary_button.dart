@@ -26,7 +26,7 @@ class PrimaryButton extends StatelessWidget {
       width: width,
       decoration: BoxDecoration(
         color: grey
-            ? const Color(0xff575757)
+            ? const Color(0xff363636)
             : active
                 ? AppColors.main
                 : const Color(0xff363636),

@@ -24,7 +24,7 @@ class NavBar extends StatelessWidget {
             child: PrimaryButton(
               title: '+ Add New Offer',
               onPressed: () {
-                context.push('/home/offer-add');
+                context.push('/offer-add');
               },
             ),
           ),

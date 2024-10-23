@@ -25,7 +25,7 @@ class TxtField extends StatefulWidget {
 
 class _TxtFieldState extends State<TxtField> {
   double _height() {
-    if (widget.multiline) return 120;
+    if (widget.multiline) return 170;
     return 48;
   }
 

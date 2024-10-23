@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/models/offer.dart';
 import '../../../core/utils.dart';
 import '../../../core/widgets/buttons/primary_button.dart';
 import '../../../core/widgets/custom_appbar.dart';
@@ -37,7 +38,16 @@ class _OfferAddPageState extends State<OfferAddPage> {
   }
 
   void onContinue() {
-    context.push('/home/offer-add-2');
+    context.push(
+      '/offer-add-2',
+      extra: Offer(
+        id: getCurrentTimestamp(),
+        cost: parseInt(controller1.text),
+        who: controller2.text,
+        paymentPeriod: controller3.text,
+        transportType: controller4.text,
+      ),
+    );
   }
 
   void onPaymentPeriod(String period) {
@@ -70,7 +80,7 @@ class _OfferAddPageState extends State<OfferAddPage> {
     return CustomScaffold(
       body: Column(
         children: [
-          const CustomAppbar(),
+          const CustomAppbar('New Offer'),
           Expanded(
             child: ListView(
               padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -80,6 +90,8 @@ class _OfferAddPageState extends State<OfferAddPage> {
                 const SizedBox(height: 16),
                 TxtField(
                   controller: controller1,
+                  number: true,
+                  length: 5,
                   onChanged: checkActive,
                 ),
                 const SizedBox(height: 16),

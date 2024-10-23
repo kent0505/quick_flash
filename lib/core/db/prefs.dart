@@ -2,16 +2,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../utils.dart';
 
-class Prefs {
-  static String onboard = 'onboard';
-}
-
 Future<bool> getData() async {
   try {
     final prefs = await SharedPreferences.getInstance();
-    // await prefs.remove(Prefs.onboard);
+    // await prefs.remove('onboard');
     // await prefs.clear();
-    bool onboard = prefs.getBool(Prefs.onboard) ?? true;
+    bool onboard = prefs.getBool('onboard') ?? true;
     return onboard;
   } catch (e) {
     logger(e);
@@ -21,7 +17,7 @@ Future<bool> getData() async {
 
 Future<void> saveOnboard() async {
   final prefs = await SharedPreferences.getInstance();
-  prefs.setBool(Prefs.onboard, false);
+  prefs.setBool('onboard', false);
 }
 
 Future<void> saveString(String key, String value) async {
@@ -37,4 +33,17 @@ Future<void> saveInt(String key, int value) async {
 Future<void> saveBool(String key, bool value) async {
   final prefs = await SharedPreferences.getInstance();
   prefs.setBool(key, value);
+}
+
+Future<int> getCoins() async {
+  final prefs = await SharedPreferences.getInstance();
+  int coins = prefs.getInt('coins') ?? 0;
+  return coins;
+}
+
+Future<void> saveCoins() async {
+  final prefs = await SharedPreferences.getInstance();
+  int coins = prefs.getInt('coins') ?? 0;
+  prefs.setInt('coins', coins + 100);
+  coins = prefs.getInt('coins') ?? 0;
 }

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/config/app_colors.dart';
 import '../../core/db/prefs.dart';
 import '../../core/widgets/custom_scaffold.dart';
+import '../offer/bloc/offer_bloc.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -17,6 +19,10 @@ class _SplashPageState extends State<SplashPage> {
 
   void load() async {
     await getData().then((onboard) {
+      if (mounted) {
+        context.read<OfferBloc>().add(GetOfferEvent());
+      }
+
       Future.delayed(Duration.zero, () {
         setState(() {
           loading = true;

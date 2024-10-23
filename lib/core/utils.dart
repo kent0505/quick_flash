@@ -46,6 +46,10 @@ DateTime stringToDate(String date) {
   }
 }
 
+int parseInt(String value) {
+  return int.tryParse(value) ?? 0;
+}
+
 double getStatusBar(BuildContext context) {
   return MediaQuery.of(context).viewPadding.top;
 }

@@ -7,7 +7,9 @@ import 'buttons/cuper_button.dart';
 import 'texts/text_r.dart';
 
 class CustomAppbar extends StatelessWidget {
-  const CustomAppbar({super.key});
+  const CustomAppbar(this.title, {super.key});
+
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,7 @@ class CustomAppbar extends StatelessWidget {
               child: SvgPicture.asset('assets/arrow.svg'),
             ),
             const SizedBox(width: 16),
-            const TextH('New Offer', fontSize: 18),
+            TextH(title, fontSize: 18),
           ],
         ),
         const SizedBox(height: 20),
