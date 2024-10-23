@@ -7,6 +7,7 @@ import 'core/config/themes.dart';
 import 'core/db/db.dart';
 import 'features/home/bloc/home_bloc.dart';
 import 'features/offer/bloc/offer_bloc.dart';
+import 'features/reward/bloc/reward_bloc.dart';
 
 void main() async {
   await initHive();
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => HomeBloc()),
         BlocProvider(create: (context) => OfferBloc()),
+        BlocProvider(create: (context) => RewardBloc()),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,

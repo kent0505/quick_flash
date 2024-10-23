@@ -2,12 +2,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../utils.dart';
 
+int lastReward = 0;
+int coins = 0;
+
 Future<bool> getData() async {
   try {
     final prefs = await SharedPreferences.getInstance();
     // await prefs.remove('onboard');
     // await prefs.clear();
     bool onboard = prefs.getBool('onboard') ?? true;
+    lastReward = prefs.getInt('lastReward') ?? 0;
+    coins = prefs.getInt('coins') ?? 0;
     return onboard;
   } catch (e) {
     logger(e);
@@ -37,13 +42,14 @@ Future<void> saveBool(String key, bool value) async {
 
 Future<int> getCoins() async {
   final prefs = await SharedPreferences.getInstance();
-  int coins = prefs.getInt('coins') ?? 0;
+  coins = prefs.getInt('coins') ?? 0;
   return coins;
 }
 
 Future<void> saveCoins() async {
   final prefs = await SharedPreferences.getInstance();
-  int coins = prefs.getInt('coins') ?? 0;
-  prefs.setInt('coins', coins + 100);
-  coins = prefs.getInt('coins') ?? 0;
+  coins = coins + 100;
+  lastReward = getCurrentTimestamp();
+  prefs.setInt('coins', coins);
+  prefs.setInt('lastReward', lastReward);
 }

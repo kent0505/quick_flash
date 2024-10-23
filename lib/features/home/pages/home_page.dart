@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../core/db/prefs.dart';
 import '../../../core/utils.dart';
 import '../../../core/widgets/custom_scaffold.dart';
 import '../../../core/widgets/texts/text_r.dart';
 import '../../news/pages/news_page.dart';
 import '../../offer/bloc/offer_bloc.dart';
+import '../../reward/bloc/reward_bloc.dart';
+import '../../reward/widgets/reward_dialog.dart';
 import '../bloc/home_bloc.dart';
 import '../widgets/nav_bar.dart';
 import '../widgets/offer_card.dart';
@@ -36,71 +39,91 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class _Home extends StatelessWidget {
+class _Home extends StatefulWidget {
   const _Home();
 
   @override
+  State<_Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<_Home> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<RewardBloc>().add(CheckRewardEvent());
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(height: getStatusBar(context) + 20),
-        Row(
-          children: [
-            const SizedBox(width: 26),
-            const TextH(
-              'Home',
-              fontSize: 28,
-            ),
-            const Spacer(),
-            BlocBuilder<HomeBloc, HomeState>(
-              builder: (context, state) {
-                if (state is HomeInitial) {
+    return BlocListener<RewardBloc, RewardState>(
+      listener: (context, state) {
+        if (state is RewardClaimingState) {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) {
+              return const RewardDialog();
+            },
+          );
+        }
+      },
+      child: Column(
+        children: [
+          SizedBox(height: getStatusBar(context) + 20),
+          Row(
+            children: [
+              const SizedBox(width: 26),
+              const TextH(
+                'Home',
+                fontSize: 28,
+              ),
+              const Spacer(),
+              BlocBuilder<RewardBloc, RewardState>(
+                builder: (context, state) {
                   return TextB(
-                    state.coins.toString(),
+                    coins.toString(),
                     fontSize: 20,
                   );
-                }
+                },
+              ),
+              const SizedBox(width: 4),
+              SvgPicture.asset(
+                'assets/coin.svg',
+                height: 40,
+              ),
+              const SizedBox(width: 26),
+            ],
+          ),
+          const SizedBox(height: 20),
+          BlocBuilder<OfferBloc, OfferState>(
+            builder: (context, state) {
+              if (state is OfferLoadedState) {
+                return Expanded(
+                  child: ListView(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    children: [
+                      const SizedBox(height: 16),
+                      const Center(
+                        child: TextM('Cars', fontSize: 18),
+                      ),
+                      const SizedBox(height: 26),
+                      ...List.generate(
+                        state.offers.length,
+                        (index) {
+                          return OfferCard(offer: state.offers[index]);
+                        },
+                      ),
+                      const SizedBox(height: 96 + 32 + 50 + 30),
+                    ],
+                  ),
+                );
+              }
 
-                return Container();
-              },
-            ),
-            const SizedBox(width: 4),
-            SvgPicture.asset(
-              'assets/coin.svg',
-              height: 40,
-            ),
-            const SizedBox(width: 26),
-          ],
-        ),
-        const SizedBox(height: 20),
-        BlocBuilder<OfferBloc, OfferState>(
-          builder: (context, state) {
-            if (state is OfferLoadedState) {
-              return Expanded(
-                child: ListView(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  children: [
-                    const SizedBox(height: 16),
-                    const Center(
-                      child: TextM('Cars', fontSize: 18),
-                    ),
-                    const SizedBox(height: 26),
-                    ...List.generate(
-                      state.offers.length,
-                      (index) {
-                        return OfferCard(offer: state.offers[index]);
-                      },
-                    ),
-                    const SizedBox(height: 96 + 32 + 50 + 30),
-                  ],
-                ),
-              );
-            }
-
-            return Container();
-          },
-        ),
-      ],
+              return Container();
+            },
+          ),
+        ],
+      ),
     );
   }
 }
