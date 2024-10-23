@@ -13,19 +13,19 @@ import '../../../core/widgets/texts/text_r.dart';
 import '../bloc/offer_bloc.dart';
 import '../widgets/field_title.dart';
 
-class OfferAddPage3 extends StatefulWidget {
-  const OfferAddPage3({super.key, required this.offer});
+class OfferEditPage3 extends StatefulWidget {
+  const OfferEditPage3({super.key, required this.offer});
 
   final Offer offer;
 
   @override
-  State<OfferAddPage3> createState() => _OfferAddPage3State();
+  State<OfferEditPage3> createState() => _OfferEditPage3State();
 }
 
-class _OfferAddPage3State extends State<OfferAddPage3> {
+class _OfferEditPage3State extends State<OfferEditPage3> {
   final controller1 = TextEditingController();
 
-  bool active = false;
+  bool active = true;
 
   void checkActive() {
     setState(() {
@@ -35,7 +35,7 @@ class _OfferAddPage3State extends State<OfferAddPage3> {
 
   void onAdd() {
     context.read<OfferBloc>().add(
-          AddOfferEvent(
+          EditOfferEvent(
             offer: Offer(
               id: widget.offer.id,
               cost: widget.offer.cost,
@@ -53,6 +53,13 @@ class _OfferAddPage3State extends State<OfferAddPage3> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    controller1.text = widget.offer.comment;
+    if (widget.offer.comment.isEmpty) active = false;
+  }
+
+  @override
   void dispose() {
     controller1.dispose();
     super.dispose();
@@ -63,7 +70,7 @@ class _OfferAddPage3State extends State<OfferAddPage3> {
     return CustomScaffold(
       body: Column(
         children: [
-          const CustomAppbar('New Offer'),
+          const CustomAppbar('Edit Offer'),
           Expanded(
             child: ListView(
               padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -108,7 +115,7 @@ class _OfferAddPage3State extends State<OfferAddPage3> {
                 ),
                 const SizedBox(height: 40),
                 PrimaryButton(
-                  title: 'Add New Offer',
+                  title: 'Edit Offer',
                   active: active,
                   onPressed: onAdd,
                 ),

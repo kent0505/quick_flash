@@ -4,6 +4,9 @@ import '../../features/home/pages/home_page.dart';
 import '../../features/offer/pages/offer_add_page.dart';
 import '../../features/offer/pages/offer_add_page2.dart';
 import '../../features/offer/pages/offer_add_page3.dart';
+import '../../features/offer/pages/offer_edit_page.dart';
+import '../../features/offer/pages/offer_edit_page2.dart';
+import '../../features/offer/pages/offer_edit_page3.dart';
 import '../../features/splash/onboard_page.dart';
 import '../../features/splash/splash_page.dart';
 import '../models/offer.dart';
@@ -36,6 +39,24 @@ final routerConfig = GoRouter(
     GoRoute(
       path: '/offer-add-3',
       builder: (context, state) => OfferAddPage3(
+        offer: state.extra as Offer,
+      ),
+    ),
+    GoRoute(
+      path: '/offer-edit',
+      builder: (context, state) => OfferEditPage(
+        offer: state.extra as Offer,
+      ),
+    ),
+    GoRoute(
+      path: '/offer-edit-2',
+      builder: (context, state) => OfferEditPage2(
+        offer: state.extra as Offer,
+      ),
+    ),
+    GoRoute(
+      path: '/offer-edit-3',
+      builder: (context, state) => OfferEditPage3(
         offer: state.extra as Offer,
       ),
     ),

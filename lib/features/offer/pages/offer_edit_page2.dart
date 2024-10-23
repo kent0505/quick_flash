@@ -10,21 +10,21 @@ import '../../../core/widgets/textfields/txt_field.dart';
 import '../bloc/offer_bloc.dart';
 import '../widgets/field_title.dart';
 
-class OfferAddPage2 extends StatefulWidget {
-  const OfferAddPage2({super.key, required this.offer});
+class OfferEditPage2 extends StatefulWidget {
+  const OfferEditPage2({super.key, required this.offer});
 
   final Offer offer;
 
   @override
-  State<OfferAddPage2> createState() => _OfferAddPage2State();
+  State<OfferEditPage2> createState() => _OfferEditPage2State();
 }
 
-class _OfferAddPage2State extends State<OfferAddPage2> {
+class _OfferEditPage2State extends State<OfferEditPage2> {
   final controller1 = TextEditingController();
 
   void onSend() {
     context.read<OfferBloc>().add(
-          AddOfferEvent(
+          EditOfferEvent(
             offer: Offer(
               id: widget.offer.id,
               cost: widget.offer.cost,
@@ -32,7 +32,7 @@ class _OfferAddPage2State extends State<OfferAddPage2> {
               paymentPeriod: widget.offer.paymentPeriod,
               transportType: widget.offer.transportType,
               note: controller1.text,
-              comment: '',
+              comment: widget.offer.comment,
             ),
           ),
         );
@@ -42,7 +42,7 @@ class _OfferAddPage2State extends State<OfferAddPage2> {
 
   void onContinue() {
     context.push(
-      '/offer-add-3',
+      '/offer-edit-3',
       extra: Offer(
         id: widget.offer.id,
         cost: widget.offer.cost,
@@ -50,8 +50,15 @@ class _OfferAddPage2State extends State<OfferAddPage2> {
         paymentPeriod: widget.offer.paymentPeriod,
         transportType: widget.offer.transportType,
         note: controller1.text,
+        comment: widget.offer.comment,
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    controller1.text = widget.offer.note;
   }
 
   @override
@@ -65,7 +72,7 @@ class _OfferAddPage2State extends State<OfferAddPage2> {
     return CustomScaffold(
       body: Column(
         children: [
-          const CustomAppbar('New Offer'),
+          const CustomAppbar('Edit Offer'),
           Expanded(
             child: ListView(
               padding: const EdgeInsets.symmetric(horizontal: 24),

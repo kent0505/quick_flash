@@ -15,8 +15,19 @@ import '../widgets/nav_bar.dart';
 import '../widgets/offer_card.dart';
 import 'settings_page.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<RewardBloc>().add(CheckRewardEvent());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,19 +50,8 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class _Home extends StatefulWidget {
+class _Home extends StatelessWidget {
   const _Home();
-
-  @override
-  State<_Home> createState() => _HomeState();
-}
-
-class _HomeState extends State<_Home> {
-  @override
-  void initState() {
-    super.initState();
-    context.read<RewardBloc>().add(CheckRewardEvent());
-  }
 
   @override
   Widget build(BuildContext context) {
