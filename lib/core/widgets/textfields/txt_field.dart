@@ -1,30 +1,21 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../config/app_colors.dart';
-import '../../config/themes.dart';
-import '../../utils.dart';
 
 class TxtField extends StatefulWidget {
   const TxtField({
     super.key,
     required this.controller,
-    required this.hintText,
     this.multiline = false,
     this.number = false,
-    this.datePicker = false,
-    this.timePicker = false,
     this.length = 20,
     required this.onChanged,
   });
 
   final TextEditingController controller;
-  final String hintText;
   final bool multiline;
   final bool number;
-  final bool datePicker;
-  final bool timePicker;
   final int length;
   final void Function() onChanged;
 
@@ -35,7 +26,7 @@ class TxtField extends StatefulWidget {
 class _TxtFieldState extends State<TxtField> {
   double _height() {
     if (widget.multiline) return 120;
-    return 60;
+    return 48;
   }
 
   int? _maxLines() {
@@ -49,11 +40,6 @@ class _TxtFieldState extends State<TxtField> {
     return null;
   }
 
-  bool _readOnly() {
-    if (widget.datePicker || widget.timePicker) return true;
-    return false;
-  }
-
   List<TextInputFormatter>? _inputFormatters() {
     final length = LengthLimitingTextInputFormatter(widget.length);
     final digit = FilteringTextInputFormatter.digitsOnly;
@@ -61,48 +47,33 @@ class _TxtFieldState extends State<TxtField> {
     return [length];
   }
 
-  void onDateTimeChanged(DateTime date) {
-    setState(() {
-      widget.controller.text = dateToString(date);
-    });
-    widget.onChanged();
-  }
-
-  void onTimeChanged(DateTime date) {
-    setState(() {
-      widget.controller.text = timeToString(date);
-    });
-    widget.onChanged();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
       height: _height(),
       decoration: BoxDecoration(
-        color: AppColors.black40,
-        borderRadius: BorderRadius.circular(8),
+        color: const Color(0xff363636),
+        borderRadius: BorderRadius.circular(16),
       ),
       child: TextField(
         controller: widget.controller,
         keyboardType: _keyboardType(),
         maxLines: _maxLines(),
         inputFormatters: _inputFormatters(),
-        readOnly: _readOnly(),
         textCapitalization: TextCapitalization.sentences,
         style: const TextStyle(
           color: AppColors.white,
-          fontFamily: Fonts.medium,
+          fontFamily: Fonts.regular,
         ),
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.symmetric(
             vertical: 0,
-            horizontal: 16,
+            horizontal: 22,
           ),
-          hintText: widget.hintText,
+          hintText: 'Enter Here',
           hintStyle: TextStyle(
-            color: AppColors.white50,
-            fontFamily: Fonts.medium,
+            color: AppColors.white34,
+            fontFamily: Fonts.regular,
           ),
           focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.transparent),
@@ -117,112 +88,7 @@ class _TxtFieldState extends State<TxtField> {
         onChanged: (value) {
           widget.onChanged();
         },
-        onTap: () async {
-          if (widget.datePicker) {
-            await showCupertinoModalPopup(
-              context: context,
-              builder: (context) {
-                return Container(
-                  height: 240,
-                  decoration: BoxDecoration(
-                    color: AppColors.white50,
-                    borderRadius: const BorderRadius.vertical(
-                      top: Radius.circular(8),
-                    ),
-                  ),
-                  child: CupertinoTheme(
-                    data: cupertinoTheme,
-                    child: CupertinoDatePicker(
-                      onDateTimeChanged: onDateTimeChanged,
-                      initialDateTime: stringToDate(widget.controller.text),
-                      mode: CupertinoDatePickerMode.date,
-                      minimumYear: 1950,
-                      maximumYear: DateTime.now().year + 1,
-                    ),
-                  ),
-                );
-              },
-            );
-          } else if (widget.timePicker) {
-            await showCupertinoModalPopup(
-              context: context,
-              builder: (context) {
-                return Container(
-                  height: 240,
-                  decoration: BoxDecoration(
-                    color: AppColors.white50,
-                    borderRadius: const BorderRadius.vertical(
-                      top: Radius.circular(8),
-                    ),
-                  ),
-                  child: CupertinoTheme(
-                    data: cupertinoTheme,
-                    child: CupertinoDatePicker(
-                      onDateTimeChanged: onTimeChanged,
-                      initialDateTime: stringToDate(widget.controller.text),
-                      mode: CupertinoDatePickerMode.time,
-                      use24hFormat: true,
-                    ),
-                  ),
-                );
-              },
-            );
-          }
-        },
       ),
     );
   }
 }
-
-// 1
-//  date_picker_plus: ^4.1.0
-// 2
-//  readOnly: true,
-// 3
-// onTap: () async {
-//     final date = await showDatePickerDialog(
-//         context: context,
-//         leadingDateTextStyle: const TextStyle(
-//           color: AppColors.purple1,
-//           fontWeight: FontWeight.w700,
-//           fontFamily: 'InterB',
-//         ),
-//         enabledCellsTextStyle: const TextStyle(
-//           color: AppColors.black,
-//         ),
-//         currentDateTextStyle: const TextStyle(
-//           color: AppColors.white,
-//         ),
-//         currentDateDecoration: BoxDecoration(
-//           borderRadius: BorderRadius.circular(100),
-//           color: const Color(0xffFB41FF),
-//           // border: Border.all(color: const Color(0xffFB41FF)),
-//         ),
-//         disabledCellsTextStyle: const TextStyle(
-//           color: AppColors.black,
-//           fontSize: 12,
-//           fontWeight: FontWeight.w500,
-//           fontFamily: 'InterM',
-//         ),
-//         daysOfTheWeekTextStyle: const TextStyle(
-//           color: Color(0xff3d3d40),
-//           fontSize: 12,
-//           fontWeight: FontWeight.w600,
-//           fontFamily: 'InterM',
-//         ),
-//         splashColor: AppColors.pink1,
-//         highlightColor: AppColors.pink1,
-//         slidersColor: AppColors.purple1,
-//         currentDate: controller.text.isEmpty
-//             ? DateTime.now()
-//             : convertToDateTime(controller.text),
-//         minDate: DateTime(2020, 1, 1),
-//         maxDate: DateTime(2030, 1, 1),
-//         padding: EdgeInsets.zero,
-//         contentPadding: const EdgeInsets.all(24),
-//         height: 318,
-//     );
-//     if (date != null) {
-//         onDate(formatDateTime(date));
-//     }
-// },

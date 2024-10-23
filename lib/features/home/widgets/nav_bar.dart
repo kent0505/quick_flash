@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/config/app_colors.dart';
 import '../../../core/widgets/buttons/cuper_button.dart';
@@ -22,7 +23,9 @@ class NavBar extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 32),
             child: PrimaryButton(
               title: '+ Add New Offer',
-              onPressed: () {},
+              onPressed: () {
+                context.push('/home/offer-add');
+              },
             ),
           ),
           const SizedBox(height: 32),

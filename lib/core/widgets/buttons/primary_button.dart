@@ -25,7 +25,11 @@ class PrimaryButton extends StatelessWidget {
       height: 50,
       width: width,
       decoration: BoxDecoration(
-        color: grey ? const Color(0xff575757) : AppColors.main,
+        color: grey
+            ? const Color(0xff575757)
+            : active
+                ? AppColors.main
+                : const Color(0xff363636),
         borderRadius: BorderRadius.circular(50),
       ),
       child: CupertinoButton(
@@ -35,7 +39,7 @@ class PrimaryButton extends StatelessWidget {
           child: TextH(
             title,
             fontSize: 18,
-            color: active ? AppColors.white : AppColors.white50,
+            color: AppColors.white,
           ),
         ),
       ),
