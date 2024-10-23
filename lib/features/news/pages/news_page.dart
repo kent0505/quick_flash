@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/models/news.dart';
 import '../../../core/utils.dart';
 import '../../../core/widgets/texts/text_r.dart';
+import '../widgets/news_card.dart';
 
 class NewsPage extends StatelessWidget {
   const NewsPage({super.key});
@@ -20,9 +22,25 @@ class NewsPage extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 36),
-        const TextM('Popular news', fontSize: 18),
-        const SizedBox(height: 20),
+        const SizedBox(width: 20),
+        Expanded(
+          child: ListView(
+            padding: const EdgeInsets.symmetric(horizontal: 30),
+            children: [
+              const SizedBox(height: 16),
+              const Center(
+                child: TextM('Popular news', fontSize: 18),
+              ),
+              const SizedBox(height: 20),
+              ...List.generate(
+                newsList.length,
+                (index) {
+                  return NewsCard(news: newsList[index]);
+                },
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }

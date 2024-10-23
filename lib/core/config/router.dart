@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 
 import '../../features/home/pages/home_page.dart';
+import '../../features/news/pages/news_detail_page.dart';
 import '../../features/offer/pages/offer_add_page.dart';
 import '../../features/offer/pages/offer_add_page2.dart';
 import '../../features/offer/pages/offer_add_page3.dart';
@@ -9,6 +10,7 @@ import '../../features/offer/pages/offer_edit_page2.dart';
 import '../../features/offer/pages/offer_edit_page3.dart';
 import '../../features/splash/onboard_page.dart';
 import '../../features/splash/splash_page.dart';
+import '../models/news.dart';
 import '../models/offer.dart';
 
 final routerConfig = GoRouter(
@@ -58,6 +60,12 @@ final routerConfig = GoRouter(
       path: '/offer-edit-3',
       builder: (context, state) => OfferEditPage3(
         offer: state.extra as Offer,
+      ),
+    ),
+    GoRoute(
+      path: '/news',
+      builder: (context, state) => NewsDetailPage(
+        news: state.extra as News,
       ),
     ),
   ],
