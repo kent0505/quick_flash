@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/config/app_colors.dart';
 import '../../../core/models/offer.dart';
+import '../../../core/utils.dart';
 import '../../../core/widgets/buttons/cuper_button.dart';
 import '../../../core/widgets/texts/text_r.dart';
 
@@ -11,12 +12,6 @@ class OfferCard extends StatelessWidget {
   const OfferCard({super.key, required this.offer});
 
   final Offer offer;
-
-  int getId(String data) {
-    if (data == 'Passenger car') return 1;
-    if (data == 'Truck') return 2;
-    return 3;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +30,7 @@ class OfferCard extends StatelessWidget {
           children: [
             const SizedBox(width: 8),
             SvgPicture.asset(
-              'assets/car${getId(offer.transportType)}.svg',
+              'assets/car${getSvgId(offer.transportType)}.svg',
             ),
             const Spacer(),
             Container(
@@ -63,9 +58,9 @@ class OfferCard extends StatelessWidget {
                         fontSize: 20,
                         color: AppColors.main,
                       ),
-                      const Expanded(
+                      Expanded(
                         child: TextM(
-                          '/per day',
+                          '/per ${getPeriod(offer.paymentPeriod)}',
                           fontSize: 12,
                           color: AppColors.main,
                         ),

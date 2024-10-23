@@ -26,6 +26,11 @@ class TypeCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: const Color(0xff222222),
         borderRadius: BorderRadius.circular(16),
+        border: active
+            ? Border.all(
+                color: AppColors.main,
+              )
+            : null,
       ),
       child: CuperButton(
         onPressed: () {

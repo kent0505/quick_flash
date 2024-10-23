@@ -80,3 +80,21 @@ void logger(Object message) {
     debugPrint(e.toString());
   }
 }
+
+// int calculateDayAmount(String type, int amount) {
+//   if (type == 'Weekly') return amount ~/ 7;
+//   if (type == 'Monthly') return amount ~/ 30;
+//   return amount;
+// }
+
+String getPeriod(String period) {
+  if (period == 'Weekly') return 'week';
+  if (period == 'Monthly') return 'month';
+  return 'day';
+}
+
+int getSvgId(String data) {
+  if (data == 'Passenger car') return 1;
+  if (data == 'Truck') return 2;
+  return 3;
+}
