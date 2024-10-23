@@ -33,11 +33,23 @@ class NewsPage extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               ...List.generate(
+                popularNewsList.length,
+                (index) {
+                  return NewsCard(news: popularNewsList[index]);
+                },
+              ),
+              const SizedBox(height: 26),
+              const Center(
+                child: TextM('Recent news', fontSize: 18),
+              ),
+              const SizedBox(height: 20),
+              ...List.generate(
                 newsList.length,
                 (index) {
                   return NewsCard(news: newsList[index]);
                 },
               ),
+              const SizedBox(height: 110),
             ],
           ),
         ),

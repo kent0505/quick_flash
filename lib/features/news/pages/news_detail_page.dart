@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:quick_flash/core/config/app_colors.dart';
-import 'package:quick_flash/core/widgets/texts/text_r.dart';
 
+import '../../../core/config/app_colors.dart';
 import '../../../core/models/news.dart';
 import '../../../core/widgets/custom_appbar.dart';
 import '../../../core/widgets/custom_scaffold.dart';
+import '../../../core/widgets/texts/text_r.dart';
 
 class NewsDetailPage extends StatelessWidget {
   const NewsDetailPage({super.key, required this.news});
